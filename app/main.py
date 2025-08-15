@@ -1,9 +1,9 @@
 # app/main.py
 from fastapi import FastAPI
-from app.api.v1.endpoints import transcription
+# Importamos los routers de ambos endpoints
+from app.api.v1.endpoints import transcription, chat
 
 # --- Inicialización de la Aplicación FastAPI ---
-# Se crea la instancia principal de la aplicación.
 app = FastAPI(
     title="API de Análisis de Conversaciones Médicas",
     description="Un sistema para transcribir, analizar y consultar conversaciones entre promotores y pacientes.",
@@ -11,11 +11,11 @@ app = FastAPI(
 )
 
 # --- Inclusión de Routers ---
-# Se incluye el router de la API de transcripción.
-# Esto permite organizar los endpoints en módulos separados.
-# Si en el futuro agregas un endpoint para 'chat', simplemente crearías
-# un nuevo router y lo incluirías aquí.
-app.include_router(transcription.router, prefix="/api/v1", tags=["Transcription"])
+# Incluimos el router de transcripción
+app.include_router(transcription.router, prefix="/api/v1", tags=["1. Procesamiento de Audio"])
+# Incluimos el nuevo router del chatbot
+app.include_router(chat.router, prefix="/api/v1", tags=["2. Chatbot de Consultas"])
+
 
 # --- Endpoint de Verificación (Health Check) ---
 @app.get("/", tags=["Root"])
