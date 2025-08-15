@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Este es el nombre que le damos a nuestro servicio
+  api:
+    # Le decimos que construya la imagen usando el Dockerfile en el directorio actual (.)
+    build: .
+    # Le damos un nombre al contenedor para identificarlo fácilmente
+    container_name: transcripcion-pro-container
+    ports:
+      # Mapeamos el puerto 8000 de nuestra máquina al puerto 8000 del contenedor
+      - "8000:8000"
+    env_file:
+      # Esta es la línea clave: le decimos a Docker Compose que cargue
+      # las variables de entorno desde nuestro archivo .env
+      - .env
